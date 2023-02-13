@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from users.models import User
 from .models import TodoList, Todo
+from .todo_model_settings import TodoImportance
 
 
 # class CreatorSerializer(serializers.ModelSerializer):
@@ -19,14 +20,30 @@ class ToDoListSerializer(serializers.ModelSerializer):
 
 
 class ToDoSerializer(serializers.ModelSerializer):
+    status = serializers.SerializerMethodField()
+    importance = serializers.SerializerMethodField()
+
 
     class Meta:
-        model = Todo
-        fields = "__all__"
+            model = Todo
+            fields = "__all__"
+
+    def get_status(self, obj):
+        return obj.get_status_display()
+
+    def get_importance(self, obj):
+        return obj.get_importance_display()
+
+
+class ToDoUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = Todo
+            fields = "__all__"
 
 
 class ToDoListDetailSerializer(serializers.ModelSerializer):
     todos = ToDoSerializer(many=True)
+
 
     class Meta:
         model = TodoList

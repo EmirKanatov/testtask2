@@ -53,12 +53,17 @@ class Todo(models.Model):
     todolist = models.ForeignKey(
         TodoList, related_name="todos", on_delete=models.CASCADE, verbose_name="список дел", null=True
     )
-
-    class Meta:
-        ordering = ("created_at",)
+    #
+    # class Meta:
+    #     ordering = ["created_at", "importance"]
 
     def __str__(self):
         return self.description
+
+    def get_status_display(self):
+        for choice in TodoStatuses.choices():
+            if choice[0] == self.status:
+                return choice[1]
 
     def close(self):
         self.status = True

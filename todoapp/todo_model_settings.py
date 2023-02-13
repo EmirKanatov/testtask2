@@ -1,33 +1,33 @@
 
 
 class TodoStatuses:
-    NOT_DONE = 'Не выполнено'
-    IN_PROCESS = 'В процессе'
-    DONE = 'Выполнено'
+    NOT_DONE = 'not_done'
+    IN_PROCESS = 'in_progress'
+    DONE = 'done'
 
     @classmethod
     def choices(cls):
         return (
-            (cls.NOT_DONE, cls.NOT_DONE),
-            (cls.IN_PROCESS, cls.IN_PROCESS),
-            (cls.DONE, cls.DONE),
+            (cls.NOT_DONE, 'Не выполнено'),
+            (cls.IN_PROCESS, 'В процессе'),
+            (cls.DONE, 'Выполнено'),
         )
 
 
 class TodoImportance:
 
-    FIRST = 'Срочно и Важно'
-    SECOND = 'Срочно'
-    THIRD = 'Важно'
-    FOURTH = 'Cредне'
-    FIFTH = 'Не особо важно'
+    FIRST = '1'
+    SECOND = '2'
+    THIRD = '3'
+    FOURTH = '4'
+    FIFTH = '5'
 
     @classmethod
     def choices(cls):
         return (
-            (cls.FIRST, cls.FIRST),
-            (cls.SECOND, cls.SECOND),
-            (cls.THIRD, cls.THIRD),
-            (cls.FOURTH, cls.FOURTH),
-            (cls.FIFTH, cls.FIFTH),
+            (cls.FIRST, 'Срочно и Важно'),
+            (cls.SECOND, 'Срочно'),
+            (cls.THIRD, 'Важно'),
+            (cls.FOURTH, 'Cредне'),
+            (cls.FIFTH, 'Не особо важно'),
         )
