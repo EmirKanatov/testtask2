@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'django_filters',
     'filters',
+    'todoproject.celery',
 
     'todoapp',
     'users'
@@ -143,7 +145,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -153,3 +159,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BASE_BACK_URL = config('BASE_BACK_URL', default='http://localhost:8000')
 
 AUTH_USER_MODEL = 'users.User'
+
+
+CELERY_BROKER_URL = "redis://0.0.0.0:6379/0"
+CELERY_RESULT_BACKEND = "redis://0.0.0.0:6379/0"
+
+EMAIL_HOST = "smtp.mail.ru"
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "flower.shop00@mail.ru" # имя почтового ящика
+EMAIL_HOST_PASSWORD = "Ub4SzVP6Lw8A91EE3bBg" #password
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = 'flower.shop00@mail.ru'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Bishkek'

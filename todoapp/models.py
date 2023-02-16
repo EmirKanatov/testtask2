@@ -40,8 +40,8 @@ class Todo(models.Model):
                                   verbose_name="важность")
 
     created_at = models.DateTimeField('создано', auto_now=True)
-    plannedStartDate = models.DateTimeField('Запланировано начать', null=True)
-    plannedEndDate = models.DateTimeField('Запланировано закончить', null=True)
+    plannedStartDate = models.DateTimeField('Запланировано начать')
+    plannedEndDate = models.DateTimeField('Запланировано закончить')
     actualStartDate = models.DateTimeField('реально начато', null=True, blank=True)
     actualEndDate = models.DateTimeField('реально закончено', null=True, blank=True)
 
@@ -65,6 +65,9 @@ class Todo(models.Model):
             if choice[0] == self.status:
                 return choice[1]
 
+    def get_file(self):
+        return self.files
+
     def close(self):
         self.status = True
         self.finished_at = timezone.now()
@@ -74,6 +77,17 @@ class Todo(models.Model):
         self.is_finished = False
         self.finished_at = None
         self.save()
+
+
+class TodoFile(models.Model):
+
+    class Meta:
+        verbose_name = "Файл"
+        verbose_name_plural = "Файлы"
+
+    todo = models.ForeignKey(Todo, related_name="files", blank=True, null=True, on_delete=models.CASCADE, verbose_name='задача')
+    file = models.FileField(null=True, blank=True, verbose_name="файл")
+
 
 
 class Comment(models.Model):

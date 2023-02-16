@@ -8,8 +8,8 @@ media
 __pycache__/
 *.py[cod]
 *$py.class
-news/migrations/*.py
-galery/migrations/*.py
+todoproject/migrations/*.py
+todoapp/migrations/*.py
 partners/migrations/*.py
 team/migrations/*.py
 users/migrations/*.py

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from todoapp.models import TodoList, Todo, Comment
+from todoapp.models import TodoList, Todo, Comment, TodoFile
+
 
 # Register your models here.
 
@@ -19,3 +20,4 @@ class TodoListAdmin(admin.ModelAdmin):
 
 admin.site.register(Todo)
 admin.site.register(Comment)
+admin.site.register(TodoFile)
