@@ -1,14 +1,6 @@
-from datetime import datetime, timedelta
-
-import pytz
-from django.core.mail import send_mail
-from django.shortcuts import render
-from django_filters import OrderingFilter
+from datetime import datetime
 from django_filters.rest_framework import DjangoFilterBackend
-from filters.mixins import FiltersMixin
-from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.filters import SearchFilter
 import django_filters
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
@@ -20,7 +12,6 @@ from todoapp.filter import TodoListFilter, TodoFilter
 from todoapp.models import TodoList, Todo, TodoFile
 from todoapp.serializers import ToDoListSerializer, ToDoListDetailSerializer, ToDoSerializer, ToDoUpdateSerializer, \
     ToDoDetailSerializer, FileSerializer
-from todoproject.settings import EMAIL_HOST_USER
 from todoproject.task import send_notification
 
 
@@ -28,16 +19,13 @@ class CharFilterInFilter(django_filters.BaseInFilter, django_filters.CharFilter)
     pass
 
 
-# Create your views here.
-
 class ToDoListViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend]
     filterset_class = TodoListFilter
 
-
     def get_queryset(self):
-        return TodoList.objects.filter(creator=self.request.user)
+        return TodoList.objects.filter(creator=self.request.user.id)
 
     def perform_create(self, serializer):
         serializer.save(creator=self.request.user)
